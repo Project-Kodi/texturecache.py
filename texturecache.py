@@ -105,7 +105,7 @@ class MyConfiguration(object):
     self.SetJSONVersion(0, 0, 0)
 
     namedSection = False
-    serial_urls = "assets\.fanart\.tv"
+    serial_urls = r"assets\.fanart\.tv"    
     embedded_urls = "^video, ^music, ^DefaultVideo.png"
 
     if MyUtility.isPython3:
@@ -356,9 +356,9 @@ class MyConfiguration(object):
     # Fix patterns as we now strip image:// from the URLs, so we need to remove
     # this prefix from any legacy patterns that may be specified by the user
     for index, r in enumerate(self.CACHE_IGNORE_TYPES):
-      self.CACHE_IGNORE_TYPES[index] = re.compile(re.sub("^\^image://", "^", r.pattern))
+      self.CACHE_IGNORE_TYPES[index] = re.compile(r"^image://")
     for index, r in enumerate(self.PRUNE_RETAIN_TYPES):
-      self.PRUNE_RETAIN_TYPES[index] = re.compile(re.sub("^\^image://", "^", r.pattern))
+      self.PRUNE_RETAIN_TYPES[index] = re.compile(r"^image://")
 
     self.PRUNE_RETAIN_PREVIEWS = self.getBoolean(config, "prune.retain.previews", "yes")
     self.PRUNE_RETAIN_PICTURES = self.getBoolean(config, "prune.retain.pictures", "no")
@@ -1283,7 +1283,7 @@ class MyIMDBLoader(threading.Thread):
         elif "tvshowid" in item:
           libid = item["tvshowid"]
           if year and title.endswith("(%d)" % year):
-            title = re.sub("\(%d\)$" % year, "", title).strip()
+            title = re.sub(f"\\({re.escape(str(year))}\\)$", "", title).strip()
           isTVShow = True
         elif "episodeid" in item:
           libid = item["episodeid"]
@@ -2092,8 +2092,8 @@ class MyJSONComms(object):
       tpattern = map_to_thread
       self.config.log_replay_tmap[map_to_thread] = thread
 
-    self.web_re_result = re.compile("^.*:(%s)[ ]*: .*\.RECEIVED WEB DATA: ([0-9]*), (.*), (.*)$" % tpattern)
-    self.json_re_result = re.compile("^.*:(%s)[ ]*: .*\.PARSING JSON DATA: (.*)$" % tpattern)
+    self.web_re_result = re.compile(f"^.*:({re.escape(tpattern)})[ ]*: .*\\.RECEIVED WEB DATA: ([0-9]*), (.*), (.*)$")
+    self.json_re_result = re.compile(f"^.*:({re.escape(tpattern)})[ ]*: .*\\.PARSING JSON DATA: (.*)$")
 
   # If the thread data being processed is mapped to a thread other than the current
   # thread then ignore this thread data
@@ -3939,7 +3939,7 @@ class MyWatchedItem(object):
 class MyUtility(object):
   isPython3 = (sys.version_info >= (3, 0))
   isPython3_1 = (sys.version_info >= (3, 1))
-  EPOCH = datetime.datetime.utcfromtimestamp(0)
+  EPOCH = datetime.datetime.fromtimestamp(0, datetime.timezone.utc)
 
   DCData = {}
   DCStats = {}
@@ -3950,8 +3950,8 @@ class MyUtility(object):
   #<regexp>(.*?)([ _.-]*(?:cd|dvd|p(?:ar)?t|dis[ck])[ _.-]*[0-9]+)(.*?)(\.[^.]+)$</regexp>
   #<!-- <cd/dvd/part/pt/disk/disc> <a-d> -->
   #<regexp>(.*?)([ _.-]*(?:cd|dvd|p(?:ar)?t|dis[ck])[ _.-]*[a-d])(.*?)(\.[^.]+)$</regexp>
-  RE_STACKING_1_9 = re.compile("(.*?)([ _.-]*(?:cd|dvd|p(?:ar)?t|dis[ck])[ _.-]*[0-9]+)(.*?)(\.[^.]+)$", flags=re.IGNORECASE)
-  RE_STACKING_A_D = re.compile("(.*?)([ _.-]*(?:cd|dvd|p(?:ar)?t|dis[ck])[ _.-]*[a-d])(.*?)(\.[^.]+)$", flags=re.IGNORECASE)
+  RE_STACKING_1_9 = re.compile(r"(.*?)([ _.-]*(?:cd|dvd|p(?:ar)?t|dis[ck])[ _.-]*[0-9]+)(.*?)(\.[^.]+)$")
+  RE_STACKING_A_D = re.compile(r"(.*?)([ _.-]*(?:cd|dvd|p(?:ar)?t|dis[ck])[ _.-]*[a-d])(.*?)(\.[^.]+)$")
 
   RE_NOT_DIGITS = re.compile("[^0123456789]")
 
@@ -4133,7 +4133,7 @@ class MyUtility(object):
 
         table = ET.fromstring(newdata)
 
-        RE_IMDB = re.compile("/movie/\?([0-9]*)")
+        RE_IMDB = re.compile(r"/movie/\?\([0-9]*\)")
 
         movies = {}
         for row in table:
@@ -5108,7 +5108,7 @@ def parseURLData(jcomms, mediatype, mediaitems, imagecache, data, title_name, id
       mediatype = "tvshows"
       name = showName
       if season:
-        episode = re.sub("([0-9]*x[0-9]*)\..*", "\\1", title)
+        episode = re.sub(r"([0-9]*x[0-9]*)\..*", r"\1", title)
         longName = "%s, %s Episode %s" % (showName, season, episode)
       else:
         season = title
@@ -5243,7 +5243,7 @@ def qaData(mediatype, jcomms, database, data, title_name, id_name, rescan, work=
 
     if showName:
       if season:
-        episode = re.sub("([0-9]*x[0-9]*)\..*", "\\1", title)
+        episode = re.sub(r"([0-9]*x[0-9]*)\..*", r"\1", title)
         name = "%s, %s Episode %s" % (showName, season, episode)
       else:
         episode = None
@@ -5474,7 +5474,7 @@ def missingFiles(mediatype, data, fileList, title_name, id_name, showName=None, 
     if showName:
       name = showName
       if season:
-        episode = re.sub("([0-9]*x[0-9]*)\..*", "\\1", title)
+        episode = re.sub(r"([0-9]*x[0-9]*)\..*", r"\1", title)
         name = "%s, %s Episode %s" % (showName, season, episode)
       else:
         season = title
@@ -5533,7 +5533,7 @@ def queryLibrary(mediatype, query, data, title_name, id_name, work=None, mitems=
 
     if showName:
       if season:
-        episode = re.sub("([0-9]*x[0-9]*)\..*", "\\1", title)
+        episode = re.sub(r"([0-9]*x[0-9]*)\..*", r"\1", title)
         name = "%s, %s Episode %s" % (showName, season, episode)
       else:
         episode = None
@@ -5759,7 +5759,7 @@ def watchedBackup(mediatype, filename, data, title_name, id_name, work=None, mit
     if showName:
       shortName = showName
       if season:
-        episode_year = re.sub("([0-9]*x[0-9]*)\..*", "\\1", title)
+        episode_year = re.sub(r"([0-9]*x[0-9]*)\..*", r"\1", title)
         longName = "%s, %s Episode %s" % (showName, season, episode_year)
       else:
         episode_year = None
@@ -5810,7 +5810,7 @@ def watchedRestore(mediatype, jcomms, filename, data, title_name, id_name, work=
     if showName:
       shortName = showName
       if season:
-        episode_year = re.sub("([0-9]*x[0-9]*)\..*", "\\1", title)
+        episode_year = re.sub(r"([0-9]*x[0-9]*)\..*", r"\1", title)
         longName = "%s, %s Episode %s" % (showName, season, episode_year)
       else:
         episode_year = None
@@ -5981,7 +5981,7 @@ def updateIMDb(mediatype, jcomms, data):
 
           episode["imdbnumber"] = tvhash[tvshow["tvshowid"]]["imdbnumber"]
 
-          SxE = re.sub("[0-9]*x([0-9]*)\..*", "\\1", episode["label"])
+          SxE = re.sub(r"[0-9]*x([0-9]*)\..*", r"\1", episode["label"])
           if SxE == episode["label"] or int(SxE) < 1: continue
 
           file = episode.get("file", None)
@@ -6035,7 +6035,7 @@ def _ProcessIMDB(mediatype, jcomms, data, plotFull, plotOutline, movies250, imdb
     re_map_titles = []
     re_trans_titles = []
     re_trans_years = []
-    re_parenthesis = re.compile("\([a-zA-Z]*\)$")
+    re_parenthesis = re.compile(r"\([a-zA-Z]*\)$")
 
     for ft in gConfig.IMDB_IGNORE_TVTITLES:
       re_ignore_titles.append(re.compile(ft, re.IGNORECASE))
@@ -6095,7 +6095,7 @@ def _ProcessIMDB(mediatype, jcomms, data, plotFull, plotOutline, movies250, imdb
         # Remove original year from end of title
         if tvshow["tc.year"] is not None and tvshow["title"].endswith("(%d)" % tvshow["tc.year"]):
           before_title = tvshow["title"]
-          tvshow["title"] = re.sub("\(%d\)$" % tvshow["tc.year"], "", tvshow["title"]).strip()
+          tvshow["title"] = re.sub(r"\(%d\)$" % tvshow["tc.year"], "", tvshow["title"]).strip()
           gLogger.log("Pre-processing #4 OMDb: Title: [%s] removing year from title, giving [%s]" % (before_title, tvshow["title"]))
 
         # Remove trailing parenthesis (...) from end of title - most likely to be a country code
@@ -6790,7 +6790,7 @@ def getAllFiles(keyFunction):
             ]
 
   for r in REQUEST:
-    mediatype = re.sub(".*\.Get(.*)","\\1",r["method"])
+    mediatype = re.sub(r".*\.Get(.*)", r"\1", r["method"])
 
     if gConfig.CACHE_EXTRA and mediatype == "Movies":
       jcomms.addProperties(r, "file")
@@ -7063,7 +7063,7 @@ def get_mangled_artwork(jcomms):
             ]
 
   for r in REQUEST:
-    mediatype = re.sub(".*\.Get(.*)","\\1",r["method"])
+    mediatype = re.sub(r".*\.Get(.*)", r"\1", r["method"])
     idname = idnames[mediatype]
     mtype = types[mediatype]
 
