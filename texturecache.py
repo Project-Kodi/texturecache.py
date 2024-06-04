@@ -21,7 +21,7 @@
 #
 # Simple utility to query, validate, clean and refresh the Kodi texture cache.
 #
-# https://github.com/MilhouseVH/texturecache.py
+# https://github.com/Project-Kodi/texturecache.py
 #
 # Usage:
 #
