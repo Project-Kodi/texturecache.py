@@ -60,10 +60,10 @@ lock = threading.RLock()
 class MyConfiguration(object):
   def __init__(self, argv):
 
-    self.VERSION = "2.5.4"
+    self.VERSION = "2.5.5"
 
-    self.GITHUB = "https://raw.github.com/MilhouseVH/texturecache.py/master"
-    self.ANALYTICS_GOOD = "http://goo.gl/BjH6Lj"
+    self.GITHUB = "https://raw.githubusercontent.com/Project-Kodi/texturecache.py/master"
+    self.ANALYTICS_GOOD = "https://raw.githubusercontent.com/Project-Kodi/texturecache.py/master/VERSION"
 
     self.DEBUG = True if os.environ.get("PYTHONDEBUG", "n").lower()=="y" else False
 
