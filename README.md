@@ -1,4 +1,8 @@
-texturecache.py
+texturecache.py/texturecache.exe
+
+Download py Version: https://github.com/Project-Kodi/texturecache.py/releases/tag/V.1.0.0-py
+Download exe Version: https://github.com/Project-Kodi/texturecache.py/releases/tag/V.1.0.0-exe
+
 ===============
 
 Utility to manage and update the local Kodi texture cache (Texture##.db and Thumbnails folder), view content of the Kodi media library using JSON calls (so works with MySQL too), and also cross reference cache with library to identify space saving opportunities or problems.
