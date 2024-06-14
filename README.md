@@ -2,11 +2,16 @@
 
 Download py Version: <a href="https://github.com/Project-Kodi/texturecache.py/releases/tag/V.1.0.0-py">https://github.com/Project-Kodi/texturecache.py/releases/tag/V.1.0.0-p</a>
 
+- The texture cache.cfg needs to be adjusted!
+
 Download exe Version: <a href="https://github.com/Project-Kodi/texturecache.py/releases/tag/V.1.0.0-exe">https://github.com/Project-Kodi/texturecache.py/releases/tag/V.1.0.0-exe</a>
 
-- Python does not need to be installed separately, texturcache.exe includes everything you need. The texturecache.cfg needs to be adjusted!
+- Python does not need to be installed separately, texturcache.exe includes everything you need.
+- The texture cache.cfg needs to be adjusted!
 
 Download Kodi Addon Version (py): over Repository: <a href="https://Project-Kodi.github.io/">Project Kodi Repository</a>
+
+- Use the Addon Setting Menu!
 
 Download exe GUI Version (inexperienced people): <a href="https://raw.githubusercontent.com/Project-Kodi/texturecache.py/master/_shared_CMD/TextureCacheTool.zip">TextureCacheTool.zip</a>
 
