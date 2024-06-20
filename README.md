@@ -20,6 +20,8 @@ Download exe GUI Version (inexperienced people): <a href="https://raw.githubuser
 
 <img src="https://i.ibb.co/Y2nppVc/BIld1.jpg" alt="Windows GUI Version">
 
+Kodi Forum: <a href="http://forum.xbmc.org/showthread.php?tid=158373">http://forum.xbmc.org/showthread.php?tid=158373</a>
+
 ===============
 
 Utility to manage and update the local Kodi texture cache (Texture##.db and Thumbnails folder), view content of the Kodi media library using JSON calls (so works with MySQL too), and also cross reference cache with library to identify space saving opportunities or problems.
@@ -583,5 +585,7 @@ texturecache.py lc movies @config=/home/user/cache.cfg @section=lounge
 
 Run the script without arguments for basic usage, and with `config` option to view current configuration information.
 
-See [texturecache.py @ Kodi Forums](http://forum.xbmc.org/showthread.php?tid=158373).
 =====
+
+Github Source: <a href="https://github.com/Project-Kodi/texturecache.py">https://github.com/Project-Kodi/texturecache.py</a>
+Linkt from: <a href="https://project-kodi.github.io/">https://project-kodi.github.io/</a>
