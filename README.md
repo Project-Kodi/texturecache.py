@@ -588,4 +588,5 @@ Run the script without arguments for basic usage, and with `config` option to vi
 =====
 
 Github Source: <a href="https://github.com/Project-Kodi/texturecache.py">https://github.com/Project-Kodi/texturecache.py</a>
+
 Linkt from: <a href="https://project-kodi.github.io/">https://project-kodi.github.io/</a>
