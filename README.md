@@ -1,3 +1,7 @@
+
+> [!NOTE]
+> Support us on Patreon: <a href="https://patreon.com/ProjectKodi">patreon.com/ProjectKodi</a>
+
 ## texturecache.py/texturecache.exe
 
 Download py Version: <a href="https://github.com/Project-Kodi/texturecache.py/releases/tag/V.1.0.0-py">https://github.com/Project-Kodi/texturecache.py/releases/tag/V.1.0.0-py</a>
