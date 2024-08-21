@@ -2,6 +2,10 @@
 > [!NOTE]
 > Support us on Patreon: <a href="https://patreon.com/ProjectKodi">patreon.com/ProjectKodi</a>
 
+> [!WARNING]
+> Download, Documentation & Support: <a href="https://tsdb.club/Thread-Support-Script-Kodi-and-other-Texturecache-py">Support [Script - Kodi and other] Texturecache.py</a>
+
+
 ## texturecache.py/texturecache.exe
 
 Download py Version: <a href="https://github.com/Project-Kodi/texturecache.py/releases/tag/V.1.0.0-py">https://github.com/Project-Kodi/texturecache.py/releases/tag/V.1.0.0-py</a>
